@@ -1,0 +1,16 @@
+steps:
+- name: node:20.10.0
+  entrypoint: npm
+  args: ["install"]
+- name: node:20.10.0
+  entrypoint: npm
+  args: ["run", "create-env"]
+  env:
+    - 'MONGODB_USER=${_MONGODB_USER}'
+    - 'MONGODB_PASS=${_MONGODB_PASS}'
+    - 'MONGODB_SCHEMA=${_MONGODB_SCHEMA}'
+    - 'MONGODB_NAME=${_MONGODB_NAME}'
+    - 'JWT_SECRET=${_JWT_SECRET}'
+- name: "gcr.io/cloud-builders/gcloud"
+  args: ["app", "deploy"]
+timeout: "1600s"
